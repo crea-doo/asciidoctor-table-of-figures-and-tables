@@ -1,32 +1,30 @@
 package de.fisp.asciidoctorj.extensions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-
-public class ToftotExtensionTest {
+public class TableOfXExtensionTest {
 
     @Test
     public void registerExtensionClassesToAsciidocExtensionRegistryInstanceTest() {
         TestAsciidocInterface ascInterTest = new TestAsciidocInterface();
-        ToftotExtension toftotExtension = new ToftotExtension();
-        toftotExtension.register(ascInterTest);
+        TableOfXExtension tableOfXExtension = new TableOfXExtension();
+        tableOfXExtension.register(ascInterTest);
 
-        boolean toftotTree = false;
+        boolean tofxTree = false;
         boolean tofBlock = false;
         boolean totBlock = false;
 
         for (int i = 0; i < ascInterTest.processorList.size(); i++) {
             switch (ascInterTest.processorList.get(i)) {
-                case "de.fisp.asciidoctorj.extensions.ToftotTreeProcessor":
-                    toftotTree = true;
+                case "de.fisp.asciidoctorj.extensions.TableOfXTreeProcessor":
+                    tofxTree = true;
                     break;
-                case "de.fisp.asciidoctorj.extensions.TofBlockMacroProcessor":
+                case "de.fisp.asciidoctorj.extensions.TableOfFiguresBlockMacroProcessor":
                     tofBlock = true;
                     break;
-                case "de.fisp.asciidoctorj.extensions.TotBlockMacroProcessor":
+                case "de.fisp.asciidoctorj.extensions.TableOfTablesBlockMacroProcessor":
                     totBlock = true;
                     break;
                 default:
@@ -34,9 +32,9 @@ public class ToftotExtensionTest {
             }
         }
 
-        assertThat(toftotTree, is(true));
-        assertThat(tofBlock, is(true));
-        assertThat(totBlock, is(true));
+        assertEquals(true, tofxTree);
+        assertEquals(true, tofBlock);
+        assertEquals(true, totBlock);
     }
 
 }

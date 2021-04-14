@@ -1,5 +1,7 @@
 = Asciidoctorj-Extension zum automatischen Einfügen von Tabellen- und Abbildungsverzeichnissen
 
+Geforked von: https://github.com/fi-sp/asciidoctor-table-of-figures-and-tables
+
 == Extension bauen
 
     mvn clean install
@@ -17,9 +19,9 @@ Zum Benutzen der Extension die Dependency in der _pom.xml_ dem  **asciidoctor-ma
                <extensions>true</extensions>
                <dependencies>
                  <dependency>
-                   <groupId>de.fisp.asciidoctorj.extensions</groupId>
+                   <groupId>at.crea-doo.asciidoctorj.extensions</groupId>
                    <artifactId>toftot</artifactId>
-                   <version>1.0-SNAPSHOT</version>
+                   <version>1.0.0</version>
                  </dependency>
                  ....
                  <dependencies>
@@ -37,7 +39,7 @@ Wenn ein Tabellenverzeichnis eingefügt werden soll, muss im Dokument das Macro 
 
 Die Extension funktioniert wie folgt:
 
-Wenn im Dokument das Macro **tof::[ ]** bzw. **tot::[]** gesetzt ist, wird der Prozess zum Erstellen des jeweligen Verzeichnisses angestoßen.
+Wenn im Dokument das Macro **tof::[ ]** bzw. **tot::[]** gesetzt ist, wird der Prozess zum Erstellen des jeweiligen Verzeichnisses angestoßen.
 
 Zunächst verarbeiten die BlockMacroProcessoren das Dokument so, dass die im Text platzierten Macros ( **tof::[ ]** oder **tot::[ ]**) durch AST-Nodes ( Sections ) ersetzt werden.
 Diese Sections bekommen einen Namen ( **_tofSection** bzw. **_totSection**), welcher später genutzt wird, um die Stelle zu identifizieren, an die das Verzeichnis angehangen werden soll.
@@ -76,18 +78,22 @@ Um die Erkennung der Bilder sicherzustellen,
 bitte in der Pfaddeklaration **image::/** statt **image:/** verwenden, also mit zwei Doppelpunkten(**::**), statt mit einem(**:**), da Asciidoctorj sonst
 ebenfalls nicht automatisch mitzählt und die Extension das Bild nicht einbezieht.
 
-Neben den Macros, die vorher nicht als Attribut gesetzt werden müssen, sondern schlicht im Text plaziert werden, gibt es
-die Möglichkeit, Attribute zu setzen, um **tof::[]** bzw. **tot::[]** zu configurieren:
+Neben den Macros, die vorher nicht als Attribut gesetzt werden müssen, sondern schlicht im Text platziert werden, gibt es
+die Möglichkeit, Attribute zu setzen, um **tof::[]** bzw. **tot::[]** zu konfigurieren:
 
 == Hinweis
 
 Asciidoc ermöglicht das Nutzen von Custom Attributes im Dokument-Header in der Form **:Attributename: Attributwert**.
 Die durch die Extensions zur Verfügung gestellten Attribute sind die folgenden:
 
-**:tof-title:** Kann genutzt werden, um dem ToF einen Titel zu geben, default ist empty (" "), erwarteter Wert ist ein String
+**:tof-title:** Kann genutzt werden, um dem ToF einen Titel zu geben, default ist "Table of Figures", erwarteter Wert ist ein String
 
-**:tot-title:** Kann genutzt werden, um dem ToT einen Titel zu geben, default ist empty (" "), erwarteter Wert ist ein String
+**:tof-name:** Kann genutzt werden, um dem ToF-Eintrag einen Namen zu geben, default ist "Figure", erwarteter Wert ist ein String
 
-**:tof-numbered:** Kann genutzt werden, um die ToF-Section zu numerieren & somit z.B. ins Inhaltsverzeichnis aufzunehmen. Erwarteter Wert ist ein String( "true" oder "false")
+**:tot-title:** Kann genutzt werden, um dem ToT einen Titel zu geben, default ist "Table of Tables", erwarteter Wert ist ein String
 
-**:tot-numbered:** Kann genutzt werden, um die ToT-Section zu numerieren & somit z.B. ins Inhaltsverzeichnis aufzunehmen.  Erwarteter Wert ist ein String( "true" oder "false")
+**:tot-name:** Kann genutzt werden, um dem ToT-Eintrag einen Namen zu geben, default ist "Table", erwarteter Wert ist ein String
+
+**:tof-numbered:** Kann genutzt werden, um die ToF-Section zu nummerieren & somit z.B. ins Inhaltsverzeichnis aufzunehmen. Erwarteter Wert ist ein String( "true" oder "false")
+
+**:tot-numbered:** Kann genutzt werden, um die ToT-Section zu nummerieren & somit z.B. ins Inhaltsverzeichnis aufzunehmen.  Erwarteter Wert ist ein String( "true" oder "false")
